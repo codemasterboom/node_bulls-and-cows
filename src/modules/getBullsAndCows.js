@@ -27,6 +27,7 @@ function getBullsAndCows(userInput, numberToGuess) {
       bulls++;
     } else if (remainingSecret.includes(userInputStr[i])) {
       cows++;
+      remainingSecret.splice(remainingSecret.indexOf(userInputStr[i]), 1);
     }
   }
 
