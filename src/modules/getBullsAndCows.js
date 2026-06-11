@@ -18,11 +18,14 @@ function getBullsAndCows(userInput, numberToGuess) {
 
   const userInputStr = Array.from(String(userInput), Number);
   const numberToGuessStr = Array.from(String(numberToGuess), Number);
+  const remainingSecret = numberToGuessStr.filter(
+    (_, idx) => userInputStr[idx] !== numberToGuessStr[idx],
+  );
 
   for (let i = 0; i < 4; i++) {
     if (userInputStr[i] === numberToGuessStr[i]) {
       bulls++;
-    } else if (numberToGuessStr.includes(userInputStr[i])) {
+    } else if (remainingSecret.includes(userInputStr[i])) {
       cows++;
     }
   }

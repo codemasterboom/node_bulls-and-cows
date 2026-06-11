@@ -21,19 +21,25 @@ async function play() {
 
   let answer = '';
 
-  do {
-    answer = await askQuestion(rl, 'Enter your 4 digits: ');
+  while (true) {
+    do {
+      answer = await askQuestion(rl, 'Enter your 4 digits: ');
 
-    if (!checkIsValidUserInput(answer)) {
-      console.log('Enter a 4-digit with unique digits, first is not zero!');
+      if (!checkIsValidUserInput(answer)) {
+        console.log('Enter a 4-digit with unique digits, first is not zero!');
+      }
+    } while (!checkIsValidUserInput(answer));
+
+    const result = getBullsAndCows(answer, secret);
+
+    console.log(`Bulls: ${result.bulls}, Cows: ${result.cows}`);
+
+    if (result.bulls === 4) {
+      console.log(`🎉 Congratulations! You guessed the number: ${secret}`);
+      rl.close();
+      break;
     }
-  } while (!checkIsValidUserInput(answer));
-
-  const result = getBullsAndCows(answer, secret);
-
-  console.log(`Bulls: ${result.bulls}, Cows: ${result.cows}`);
-  console.log(`Secret number was: ${secret}`);
-  rl.close();
+  }
 }
 
 play();
